@@ -16,7 +16,7 @@ const updateUI = (data) => {
             <div class="my-3">${weather.WeatherText}</div>
             <div class="display-4 my-4">
                 <span>${weather.Temperature.Imperial.Value}</span>
-                <span>&deg;</span>
+                <span>&deg; F</span>
             </div>
         `;
 
@@ -62,8 +62,8 @@ const updateUI = (data) => {
     
             dayOfWeek.textContent = dateFns.format(day.Date, 'dddd');
             iconPhrase.textContent = day.Day.IconPhrase;
-            maxT.textContent = `High: ${day.Temperature.Maximum.Value}` ;
-            minT.textContent = `Low: ${day.Temperature.Minimum.Value}`;
+            maxT.textContent = `High: ${day.Temperature.Maximum.Value} \u00B0 F`;
+            minT.textContent = `Low: ${day.Temperature.Minimum.Value} \u00B0 F`;
             console.log(dayOfWeek)
             return dayOfWeek
         }
