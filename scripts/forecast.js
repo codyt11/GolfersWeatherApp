@@ -33,7 +33,6 @@ class Forecast{
         const query = `${id}?apikey=${this.key}`;
         const response = await fetch(this.forecastURI + query);
         const data = await response.json();
-        console.log(data.DailyForecasts)
         return data.DailyForecasts;
     }
 }

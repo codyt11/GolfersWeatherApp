@@ -6,6 +6,7 @@ const icon = document.querySelector('.icon img');
 const forecast = new Forecast();
 
 
+
 const updateUI = (data) => {
 
         const { cityDetails, weather, fiveDay } = data
@@ -74,7 +75,6 @@ const updateUI = (data) => {
         })
         
 }
-
 
 cityForm.addEventListener('submit', e => {
     e.preventDefault();
