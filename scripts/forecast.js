@@ -1,24 +1,41 @@
-const key = 'oA4VfAWWWGkvCbxo7KrErN2xGyvDKTvc';
-
-//get weather info
-const getWeather = async (id) => {
-    const base = 'https://dataservice.accuweather.com/currentconditions/v1/';
-    const query = `${id}?apikey=${key}`;
-
-    const response = await fetch(base + query);
-    const data = await response.json();
-
-    return data[0];
+class Forecast{
+    constructor(){
+        this.key = 'oA4VfAWWWGkvCbxo7KrErN2xGyvDKTvc';
+        this.weatherURI = 'https://dataservice.accuweather.com/currentconditions/v1/';
+        this.cityURI = 'https://dataservice.accuweather.com/locations/v1/cities/search';
+        this.forecastURI = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/`;
+    }
+    async updateCity(city){
+        const cityDetails = await this.getCity(city);
+        const weather = await this.getWeather(cityDetails.Key);
+        const fiveDay = await this.getForecast(cityDetails.Key);
+        
+    
+        return {
+            cityDetails,
+            weather,
+            fiveDay
+        }
+    }
+    async getCity(city){
+        const query = `?apikey=${this.key}&q=${city}`;
+        const response = await fetch(this.cityURI + query);
+        const data = await response.json();
+        return data[0];
+    }
+    async getWeather(id){
+        const query = `${id}?apikey=${this.key}`;
+        const response = await fetch(this.weatherURI + query);
+        const data = await response.json();
+        return data[0];
+    }
+     async getForecast(id){
+        const query = `${id}?apikey=${this.key}`;
+        const response = await fetch(this.forecastURI + query);
+        const data = await response.json();
+        console.log(data.DailyForecasts)
+        return data.DailyForecasts;
+    }
 }
 
-//get city info
-const getCity = async (city) => {
-    const base = 'https://dataservice.accuweather.com/locations/v1/cities/search';
-    const query = `?apikey=${key}&q=${city}`;
-
-    const response = await fetch(base + query);
-    const data = await response.json();
-
-    return data[0];
-};
 
