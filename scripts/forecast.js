@@ -1,16 +1,15 @@
 class Forecast{
     constructor(){
-        this.key = 'oA4VfAWWWGkvCbxo7KrErN2xGyvDKTvc';
-        this.weatherURI = 'https://dataservice.accuweather.com/currentconditions/v1/';
-        this.cityURI = 'https://dataservice.accuweather.com/locations/v1/cities/search';
-        this.forecastURI = `https://dataservice.accuweather.com/forecasts/v1/daily/5day/`;
+        this.key = 'WmjAN9kuOG3lsIyMMQO8E6DqfFjLfoFD';
+        this.weatherURI = 'http://dataservice.accuweather.com/currentconditions/v1/';
+        this.cityURI = 'http://dataservice.accuweather.com/locations/v1/cities/search';
+        this.forecastURI = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/`;
     }
     async updateCity(city){
         const cityDetails = await this.getCity(city);
         const weather = await this.getWeather(cityDetails.Key);
         const fiveDay = await this.getForecast(cityDetails.Key);
         
-    
         return {
             cityDetails,
             weather,
@@ -21,6 +20,7 @@ class Forecast{
         const query = `?apikey=${this.key}&q=${city}`;
         const response = await fetch(this.cityURI + query);
         const data = await response.json();
+        console.log(data)
         return data[0];
     }
     async getWeather(id){
